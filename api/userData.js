@@ -21,6 +21,19 @@ const getSingleUser = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const editUser = (user, uid) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/users/${user.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `${uid}`,
+    },
+    body: JSON.stringify(user),
+  })
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 const deleteUser = (id) => new Promise((resolve, reject) => {
   fetch(`${dbUrl}/users/${id}`, {
     method: 'DELETE',
@@ -32,4 +45,6 @@ const deleteUser = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getUsers, getSingleUser, deleteUser };
+export {
+  getUsers, getSingleUser, editUser, deleteUser,
+};
