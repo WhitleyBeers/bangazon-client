@@ -21,4 +21,15 @@ const getSingleUser = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getUsers, getSingleUser };
+const deleteUser = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/users/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+export { getUsers, getSingleUser, deleteUser };
