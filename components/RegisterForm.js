@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useRouter } from 'next/router';
 import { registerUser } from '../utils/auth'; // Update with path to registerUser
+import { getSingleUser } from '../api/userData';
 
 function RegisterForm({ user, updateUser }) {
+  const router = useRouter();
+  const { id } = router.query;
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -13,6 +17,21 @@ function RegisterForm({ user, updateUser }) {
     profileImageUrl: '',
     username: '',
   });
+
+  useEffect(() => {
+    if (id) {
+      getSingleUser(id).then((userObj) => {
+        setFormData((prevState) => ({
+          ...prevState,
+          id: userObj.id,
+          firstName: userObj.first_name,
+          lastName: userObj.last_name,
+          profileImageUrl: userObj.profile_image_url,
+          username: userObj.username,
+        }));
+      });
+    }
+  }, [user, id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +43,19 @@ function RegisterForm({ user, updateUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(formData).then(() => updateUser(user.uid));
+    if (formData.id) {
+      const payload = {
+        id: formData.id,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: user.email,
+        profileImageUrl: formData.profileImageUrl,
+        username: formData.username,
+      };
+      updateUser(payload, user.uid).then(() => router.push('/profile'));
+    } else {
+      registerUser(formData).then(() => updateUser(user.uid));
+    }
   };
 
   return (
@@ -63,6 +94,7 @@ function RegisterForm({ user, updateUser }) {
 RegisterForm.propTypes = {
   user: PropTypes.shape({
     uid: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
     fbUser: PropTypes.shape({
       email: PropTypes.string.isRequired,
     }),
