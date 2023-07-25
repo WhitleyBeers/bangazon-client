@@ -16,6 +16,8 @@ export default function UserProfile() {
     getSingleUser(user.id).then(setUserInfo);
   }, [user]);
 
+  const formattedDate = new Date(userInfo.registered_on).toLocaleDateString();
+
   const deleteProfile = () => {
     if (window.confirm('Are you sure you would like to delete your profile? This CANNOT be undone.')) {
       deleteUser(user.id).then(() => signOut());
@@ -43,7 +45,7 @@ export default function UserProfile() {
         <h5>User Info</h5>
         <p>Name: {userInfo.first_name} {user.last_name}</p>
         <p>Email: {userInfo.email}</p>
-        <p>Account created: {userInfo.registered_on}</p>
+        <p>Account created: {formattedDate}</p>
       </div>
       <Button className="mb-5 me-3" variant="success" onClick={() => router.push(`/users/edit/${userInfo.id}`)}>Edit Profile</Button>
       <Button className="mb-5" variant="danger" onClick={deleteProfile}>Delete Account</Button>
