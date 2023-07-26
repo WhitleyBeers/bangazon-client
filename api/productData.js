@@ -12,7 +12,7 @@ const getAllProducts = () => new Promise((resolve, reject) => {
     .then((response) => response.json())
     .then((data) => {
       if (data) {
-        const productArray = Object.values(data).sort((a, b) => new Date(b.registered_on) - new Date(a.registered_on));
+        const productArray = data.sort((a, b) => b.date_added.localeCompare(a.date_added));
         resolve(productArray);
       } else {
         resolve([]);

@@ -8,7 +8,10 @@ function Home() {
   const [products, setProducts] = useState([]);
 
   const getProducts = () => {
-    getAllProducts().then(setProducts);
+    getAllProducts().then((productArray) => {
+      const slicedProducts = productArray.slice(0, 20);
+      setProducts(slicedProducts);
+    });
   };
 
   useEffect(() => {
@@ -17,13 +20,7 @@ function Home() {
 
   return (
     <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
+      className="my-2 d-flex justify-content-center flex-wrap"
     >
       {products.map((product) => (
         <ProductCard productObj={product} key={product.id} />
