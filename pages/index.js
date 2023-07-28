@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../utils/context/authContext';
-import getAllProducts from '../api/productData';
+import { getAllProducts } from '../api/productData';
 import ProductCard from '../components/ProductCards';
 
 function Home() {
