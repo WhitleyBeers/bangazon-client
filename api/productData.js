@@ -32,6 +32,7 @@ const getSingleProduct = (id) => new Promise((resolve, reject) => {
     .then((data) => {
       const product = {
         ...data,
+        sellerId: data.seller_id.id,
         label: data.category_id.label,
         firstName: data.seller_id.first_name,
         lastName: data.seller_id.last_name,
@@ -41,4 +42,22 @@ const getSingleProduct = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getAllProducts, getSingleProduct };
+const getProductsBySeller = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/products?seller=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(data);
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
+export { getAllProducts, getSingleProduct, getProductsBySeller };

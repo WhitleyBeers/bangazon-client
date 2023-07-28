@@ -29,6 +29,7 @@ export default function ProductView() {
       </p>
       <p className="text-muted">Quantity available: {product.quantity}</p>
       <p>Sold by: {product.firstName} {product.lastName}</p>
+      <Button onClick={() => router.push(`/sellers/${product.sellerId}`)}>Visit Store</Button>
     </div>
   );
 }

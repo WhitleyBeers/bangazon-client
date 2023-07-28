@@ -11,7 +11,7 @@ export default function AllProductsPage() {
 
   useEffect(() => {
     getProducts();
-  });
+  }, []);
 
   return (
     <div
