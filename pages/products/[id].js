@@ -21,7 +21,7 @@ export default function ProductView() {
     <div className="mt-2">
       <h3>{product.title}</h3>
       <h5 className="fst-italic">{product.description}</h5>
-      <h6>${product.price}</h6>
+      <h6>${product.price} each</h6>
       <Button variant="success">Add to cart</Button>
       <hr />
       <p className="text-muted">
