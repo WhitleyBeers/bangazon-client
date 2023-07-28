@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 
 export default function ProductCard({ productObj }) {
+  const router = useRouter();
   return (
     <Card
       className="text-center"
@@ -35,7 +37,7 @@ export default function ProductCard({ productObj }) {
           {productObj.price}
         </Card.Text>
         <Card.Text>
-          <Button variant="success">
+          <Button variant="success" onClick={() => router.push(`/products/${productObj.id}`)}>
             View product
           </Button>
         </Card.Text>
