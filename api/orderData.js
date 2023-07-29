@@ -26,9 +26,9 @@ const getSingleOrder = (orderId) => new Promise((resolve, reject) => {
     .then((data) => {
       const order = {
         ...data,
-        products: data.products.product_id.id,
+        products: data.products.map((orderProduct) => orderProduct.product.id),
       };
-      return order.then(resolve(order));
+      resolve(order);
     })
     .catch(reject);
 });
