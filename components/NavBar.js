@@ -7,14 +7,21 @@ import {
   Nav,
   Button,
 } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 import { signOut } from '../utils/auth';
 
 export default function NavBar() {
+  const router = useRouter();
+  const signMeOut = () => {
+    signOut();
+    router.push('/');
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Link passHref href="/">
-          <Navbar.Brand>CHANGE ME</Navbar.Brand>
+          <Navbar.Brand>BANGAZON</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -23,10 +30,19 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link passHref href="/delete-me">
-              <Nav.Link>Delete Me</Nav.Link>
+            <Link passHref href="/products">
+              <Nav.Link>All Products</Nav.Link>
             </Link>
-            <Button variant="danger" onClick={signOut}>
+            <Link passHref href="/categories">
+              <Nav.Link>All Categories</Nav.Link>
+            </Link>
+            <Link passHref href="/cart">
+              <Nav.Link>My Cart</Nav.Link>
+            </Link>
+            <Link passHref href="/orders">
+              <Nav.Link>Order History</Nav.Link>
+            </Link>
+            <Button variant="danger" onClick={signMeOut}>
               Sign Out
             </Button>
           </Nav>
