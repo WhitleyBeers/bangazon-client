@@ -20,11 +20,9 @@ export default function CategoryPage() {
           <h5>
             {category.label} - {category.product_count} products
           </h5>
-          <p>
-            {category.products.slice(0, 3).map((product) => (
-              <CategoryCard key={product.id} productObj={product} />
-            ))}
-          </p>
+          {category.products.slice(0, 3).map((product) => (
+            <CategoryCard key={product.id} productObj={product} />
+          ))}
         </div>
       ))}
     </div>
