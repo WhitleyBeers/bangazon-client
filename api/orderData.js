@@ -63,10 +63,23 @@ const updateOrder = (orderId, payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getSellerOrders = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/order/history/seller`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `${id}`,
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch(reject);
+});
+
 export {
   getUserOrders,
   getSingleOrder,
   getOpenOrder,
   createOrder,
   updateOrder,
+  getSellerOrders,
 };
