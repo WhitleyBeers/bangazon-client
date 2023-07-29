@@ -17,14 +17,19 @@ export default function ProductCard({ productObj }) {
         {productObj.title}
       </Card.Header>
       <Card.Body>
-        <Card.Text
-          className="d-flex align-items-center justify-content-center"
-          style={{
-            height: '5px',
-          }}
-        >
-          Sold by: {productObj.seller_id.first_name} {productObj.seller_id.last_name}
-        </Card.Text>
+        {productObj.seller_id.first_name ? (
+          <Card.Text
+            className="d-flex align-items-center justify-content-center"
+            style={{
+              height: '5px',
+            }}
+          >
+            Sold by: {productObj.seller_id.first_name} {productObj.seller_id.last_name}
+          </Card.Text>
+        ) : (
+          ''
+        )}
+
         <hr />
         <Card.Text
           style={{

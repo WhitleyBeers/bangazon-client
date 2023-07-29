@@ -23,13 +23,7 @@ const getSingleOrder = (orderId) => new Promise((resolve, reject) => {
     },
   })
     .then((response) => response.json())
-    .then((data) => {
-      const order = {
-        ...data,
-        products: data.products.map((orderProduct) => orderProduct.product.id),
-      };
-      resolve(order);
-    })
+    .then(resolve)
     .catch(reject);
 });
 
