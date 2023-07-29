@@ -5,14 +5,14 @@ import { Card } from 'react-bootstrap';
 export default function CartProductCard({ cartObj }) {
   return (
     <Card
-      className="ps-2"
+      className="p-2 m-2"
       style={{
         width: '16rem',
       }}
     >
       <Card.Text
         style={{
-          height: '20px',
+          height: '40px',
         }}
       >
         {cartObj.title} ${cartObj.price}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import { getOpenOrder } from '../../api/orderData';
 // eslint-disable-next-line import/no-unresolved
@@ -8,6 +9,7 @@ import CartProductCard from '../../components/cartProductCard';
 export default function CartPage() {
   const { user } = useAuth();
   const [order, setOrder] = useState({});
+  const router = useRouter();
 
   useEffect(() => {
     const getMyOrder = () => {
@@ -19,10 +21,15 @@ export default function CartPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const getTotalPrice = () => order.products.reduce((total, product) => {
-    const productPrice = parseFloat(product.product_id.price);
-    return total + productPrice;
-  }, 0);
+  const getTotalPrice = () => {
+    if (order.products && order.products.length > 0) {
+      return order.products.reduce((total, product) => {
+        const productPrice = parseFloat(product.product_id.price);
+        return total + productPrice;
+      }, 0);
+    }
+    return 0;
+  };
 
   return (
     <div className="text-center d-flex justify-content-center flex-column">
@@ -39,7 +46,7 @@ export default function CartPage() {
       </p>
       <h4>TOTAL: ${getTotalPrice().toFixed(2)}</h4>
       <p>
-        <Button variant="success">Check out</Button>
+        <Button variant="success" onClick={() => router.push('/cart/checkout')}>Check out</Button>
       </p>
     </div>
   );
